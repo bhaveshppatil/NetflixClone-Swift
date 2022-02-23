@@ -27,9 +27,11 @@ class UIViewTableCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
+    
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
@@ -39,8 +41,7 @@ class UIViewTableCell: UITableViewCell {
 
 extension UIViewTableCell : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
-                                                      for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",for: indexPath)
         cell.backgroundColor = .blue
         return cell
     }
