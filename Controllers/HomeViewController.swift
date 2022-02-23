@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
         
         let headerView = HeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
-        
+        getTrendMovies()
     }
     
     private func navigationBar(){
@@ -49,6 +49,17 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeFeedTable.frame = view.bounds
+    }
+    
+    private func getTrendMovies(){
+        APiService.shared.getTrendingMovies { results in
+            switch results {
+                case .success(let movies) :
+                    print(movies)
+                case .failure(let error) :
+                    print(error)
+            }
+        }
     }
 }
 

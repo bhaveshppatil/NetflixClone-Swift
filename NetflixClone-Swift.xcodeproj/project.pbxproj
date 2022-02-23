@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5524A4EE27C4B92000D21277 /* UIViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5524A4ED27C4B92000D21277 /* UIViewTableCell.swift */; };
 		5564D27827C4E6B3008C1383 /* HeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5564D27727C4E6B3008C1383 /* HeaderUIView.swift */; };
+		55A81AB727C648760033166B /* APiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A81AB627C648760033166B /* APiService.swift */; };
+		55A81AB927C64FCE0033166B /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A81AB827C64FCE0033166B /* MovieModel.swift */; };
 		55C23BA527C3776F0030A1E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C23BA427C3776F0030A1E7 /* AppDelegate.swift */; };
 		55C23BA727C3776F0030A1E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C23BA627C3776F0030A1E7 /* SceneDelegate.swift */; };
 		55C23BA927C3776F0030A1E7 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C23BA827C3776F0030A1E7 /* MainScreenViewController.swift */; };
@@ -23,6 +25,8 @@
 /* Begin PBXFileReference section */
 		5524A4ED27C4B92000D21277 /* UIViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewTableCell.swift; sourceTree = "<group>"; };
 		5564D27727C4E6B3008C1383 /* HeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderUIView.swift; sourceTree = "<group>"; };
+		55A81AB627C648760033166B /* APiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APiService.swift; sourceTree = "<group>"; };
+		55A81AB827C64FCE0033166B /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		55C23BA127C3776F0030A1E7 /* NetflixClone-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NetflixClone-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C23BA427C3776F0030A1E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55C23BA627C3776F0030A1E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 		5524A4E827C4B84200D21277 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				55A81AB827C64FCE0033166B /* MovieModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -73,6 +78,7 @@
 		5524A4E927C4B8AF00D21277 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				55A81AB627C648760033166B /* APiService.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -200,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55A81AB927C64FCE0033166B /* MovieModel.swift in Sources */,
 				55C23BD027C389ED0030A1E7 /* UpcomingViewController.swift in Sources */,
 				5524A4EE27C4B92000D21277 /* UIViewTableCell.swift in Sources */,
 				55C23BA927C3776F0030A1E7 /* MainScreenViewController.swift in Sources */,
@@ -208,6 +215,7 @@
 				55C23BCB27C389C10030A1E7 /* SearchViewController.swift in Sources */,
 				55C23BCE27C389E10030A1E7 /* DownloadViewController.swift in Sources */,
 				55C23BD227C389FD0030A1E7 /* HomeViewController.swift in Sources */,
+				55A81AB727C648760033166B /* APiService.swift in Sources */,
 				55C23BA727C3776F0030A1E7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
