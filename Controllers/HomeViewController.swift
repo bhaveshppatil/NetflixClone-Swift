@@ -30,7 +30,8 @@ class HomeViewController: UIViewController {
         
         let headerView = HeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
-        getTrendMovies()
+        
+        getDataFromAPI()
     }
     
     private func navigationBar(){
@@ -51,15 +52,25 @@ class HomeViewController: UIViewController {
         homeFeedTable.frame = view.bounds
     }
     
-    private func getTrendMovies(){
-        APiService.shared.getTrendingMovies { results in
-            switch results {
-                case .success(let movies) :
-                    print(movies)
-                case .failure(let error) :
-                    print(error)
-            }
-        }
+    private func getDataFromAPI(){
+//        APiService.shared.getTrendingMovies { results in
+//            switch results {
+//                case .success(let movies) :
+//                    print(movies)
+//                case .failure(let error) :
+//                    print(error)
+//            }
+//        }
+        
+//        APiService.shared.getPopularMovies { results in
+//
+//        }
+//        APiService.shared.getTopRatedMovies { results in
+//
+//        }
+//        APiService.shared.getUpcomingMovies { results in
+//
+//        }
     }
 }
 
@@ -101,10 +112,8 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else {return}
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-            header.textLabel?.frame = CGRect(
-                x: header.bounds.origin.x + 20,
-                y: header.bounds.origin.y,
-                width: 100, height: header.bounds.height)
+            header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20,y: header.bounds.origin.y,width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .white
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
 }

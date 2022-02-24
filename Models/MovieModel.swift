@@ -9,7 +9,6 @@ import UIKit
 
 struct ResponseTrenfingMovies  : Codable{
     let results : [Movie]
-    
 }
 
 struct Movie : Codable {
@@ -22,8 +21,8 @@ struct Movie : Codable {
     let vote_count : Int
     let release_date : String?
     let backdrop_path : String?
-    
 }
+
 
 /*
  adult = 0;
@@ -45,27 +44,5 @@ struct Movie : Codable {
  video = 0;
  "vote_average" = 0;
  "vote_count" = 0;
-},
-     {
- "backdrop_path" = "/ctxm191q5o3axFzQsvNPlbKoSYv.jpg";
- "first_air_date" = "2022-01-13";
- "genre_ids" =             (
-     10759,
-     10765,
-     18
- );
- id = 110492;
- "media_type" = tv;
- name = Peacemaker;
- "origin_country" =             (
-     US
- );
- "original_language" = en;
- "original_name" = Peacemaker;
- overview = "The continuing story of Peacemaker \U2013 a compellingly vainglorious man who believes in peace at any cost, no matter how many people he has to kill to get it \U2013 in the aftermath of the events of \U201cThe Suicide Squad.\U201d";
- popularity = "2108.722";
- "poster_path" = "/hE3LRZAY84fG19a18pzpkZERjTE.jpg";
- "vote_average" = "8.6";
- "vote_count" = 1165;
 },
  */
