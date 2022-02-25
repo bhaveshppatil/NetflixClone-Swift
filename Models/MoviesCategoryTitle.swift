@@ -7,11 +7,11 @@
 
 import UIKit
 
-struct ResponseTrenfingMovies  : Codable{
-    let results : [Movie]
+struct MoviesResponse  : Codable{
+    let results : [MoviesTitle]
 }
 
-struct Movie : Codable {
+struct MoviesTitle : Codable {
     let id : Int
     let media_type :String?
     let original_language  : String?

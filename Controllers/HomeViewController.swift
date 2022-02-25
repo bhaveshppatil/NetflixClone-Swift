@@ -7,6 +7,13 @@
 
 import UIKit
 
+enum Category : Int {
+    case TrendingMovies = 0
+    case Popular = 1
+    case TopRated = 2
+    case UpcomingMovies =  3
+    
+}
 class HomeViewController: UIViewController {
 
     let titles : [String] = ["Trending Movies", "Popular Movies", "Top Rated", "Upcoming Movies"]
@@ -20,8 +27,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        // Do any additional setup after loading the view.
-        
         view.addSubview(homeFeedTable)
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
@@ -31,15 +36,12 @@ class HomeViewController: UIViewController {
         let headerView = HeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
         
-        getDataFromAPI()
     }
     
     private func navigationBar(){
         var image = UIImage(named: "netflix_logo")
         image = image?.withRenderingMode(.alwaysOriginal)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,
-                                                        style:.done, target: self, action: nil)
-        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,style:.done, target: self, action: nil)
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person"),style: .done, target: self,action:nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"),style: .done,target:self, action: nil)
@@ -52,26 +54,6 @@ class HomeViewController: UIViewController {
         homeFeedTable.frame = view.bounds
     }
     
-    private func getDataFromAPI(){
-//        APiService.shared.getTrendingMovies { results in
-//            switch results {
-//                case .success(let movies) :
-//                    print(movies)
-//                case .failure(let error) :
-//                    print(error)
-//            }
-//        }
-        
-//        APiService.shared.getPopularMovies { results in
-//
-//        }
-//        APiService.shared.getTopRatedMovies { results in
-//
-//        }
-//        APiService.shared.getUpcomingMovies { results in
-//
-//        }
-    }
 }
 
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
@@ -85,10 +67,54 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)  -> UITableViewCell{
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: UIViewTableCell.identifire, for: indexPath) as? UIViewTableCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UIViewTableCell.identifire, for:indexPath) as? UIViewTableCell else{
                 return UITableViewCell()
-            }
+        }
+        
+        switch indexPath.section {
+        case Category.TrendingMovies.rawValue:
+            APiService.shared.getTrendingMovies { results in
+                          switch results {
+                              case .success(let movies) :
+                                  print(movies)
+                              case .failure(let error) :
+                                  print(error.localizedDescription)
+                          }
+                      }
+                
+            case Category.Popular.rawValue:
+                APiService.shared.getPopularMovies { results in
+                    switch results {
+                        case .success(let movies) :
+                            print(movies)
+                        case .failure(let error) :
+                            print(error.localizedDescription)
+                    }
+                }
+                
+            case Category.TopRated.rawValue:
+                APiService.shared.getTopRatedMovies { results in
+                    switch results {
+                        case .success(let movies):
+                            cell.configure(with: movies)
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                    }
+                }
+                
+            case Category.UpcomingMovies.rawValue:
+                APiService.shared.getUpcomingMovies { results in
+                          switch results {
+                              case .success(let movies) :
+                                  print(movies)
+                              case .failure(let error) :
+                                  print(error)
+                    }
+                }
+                
+            default :
+                return UITableViewCell()
+        }
         return cell
     }
     
@@ -109,10 +135,12 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         let offset = scrollView.contentOffset.y + defaultOffset
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else {return}
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-            header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20,y: header.bounds.origin.y,width: 100, height: header.bounds.height)
+        header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20,y:
+            header.bounds.origin.y,width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .white
         header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
