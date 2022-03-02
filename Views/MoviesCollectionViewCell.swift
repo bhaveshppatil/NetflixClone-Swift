@@ -11,6 +11,7 @@ import SDWebImage
 class MoviesCollectionViewCell: UICollectionViewCell {
     
     static let identifire = "MoviesCollectionViewCell"
+    
     //https://www.themoviedb.org/t/p/w1280/u80AJrwINGOeQElFd2fTOUaJyXY.jpg
     
     private let imageView : UIImageView = {

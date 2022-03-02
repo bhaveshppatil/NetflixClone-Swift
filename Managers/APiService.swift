@@ -31,7 +31,6 @@ class APiService {
             guard let data = data, errror == nil else {
                 return
             }
-
             do{
                 let results = try JSONDecoder().decode(MoviesResponse.self, from: data)
                 completion(.success(results.results))
@@ -49,11 +48,10 @@ class APiService {
             guard let data = data, errror == nil else {
                 return
             }
-
             do{
                 let results = try JSONDecoder().decode(MoviesResponse.self, from: data)
                 completion(.success(results.results))
-            } catch{
+          } catch{
                 completion(.failure(APIResponseError.failed))
             }
         }
