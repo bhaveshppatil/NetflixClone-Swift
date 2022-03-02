@@ -43,7 +43,7 @@ class APiService {
     }
     
     func getPopularMovies(completion : @escaping (Result<[MoviesTitle], Error>) -> Void){
-        guard let url = URL(string: "\(Constants.base_url)/3/trending/popular/day?api_key=\(Constants.api_key)") else {return}
+        guard let url = URL(string: "\(Constants.base_url)/3/movie/popular?api_key=\(Constants.api_key)") else {return}
         let apiCall = URLSession.shared.dataTask(with: URLRequest(url: url)) {
             data, _, errror  in
             guard let data = data, errror == nil else {
@@ -52,7 +52,7 @@ class APiService {
 
             do{
                 let results = try JSONDecoder().decode(MoviesResponse.self, from: data)
-                print(results)
+                completion(.success(results.results))
             } catch{
                 completion(.failure(APIResponseError.failed))
             }
@@ -69,7 +69,7 @@ class APiService {
             }
             do{
                 let results = try JSONDecoder().decode(MoviesResponse.self, from: data)
-                print(results)
+                completion(.success(results.results))
             } catch{
                 completion(.failure(APIResponseError.failed))
             }
@@ -86,7 +86,7 @@ class APiService {
             }
             do{
                 let results = try JSONDecoder().decode(MoviesResponse.self, from: data)
-                print(results)
+                completion(.success(results.results))
             } catch{
                 completion(.failure(APIResponseError.failed))
             }

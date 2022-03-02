@@ -38,7 +38,7 @@ class UIViewTableCell: UITableViewCell {
     }
     public func configure(with movieTitle:[MoviesTitle]){
         self.moviesCategoryTitle = movieTitle
-        DispatchQueue.main.async {  [weak self] in
+        DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
         }
     }
@@ -50,11 +50,11 @@ extension UIViewTableCell : UICollectionViewDelegate, UICollectionViewDataSource
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCollectionViewCell.identifire, for: indexPath) as? MoviesCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let movieModel = moviesCategoryTitle[indexPath.row].poster_path else {
+        guard let model = moviesCategoryTitle[indexPath.row].poster_path else {
             return UICollectionViewCell()
         }
+        cell.configure(with: model)
         
-        cell.configure(with: movieModel)
         return cell
     }
     

@@ -76,7 +76,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             APiService.shared.getTrendingMovies { results in
                           switch results {
                               case .success(let movies) :
-                                  print(movies)
+                                  cell.configure(with: movies)
                               case .failure(let error) :
                                   print(error.localizedDescription)
                           }
@@ -86,7 +86,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
                 APiService.shared.getPopularMovies { results in
                     switch results {
                         case .success(let movies) :
-                            print(movies)
+                            cell.configure(with: movies)
                         case .failure(let error) :
                             print(error.localizedDescription)
                     }
@@ -106,7 +106,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
                 APiService.shared.getUpcomingMovies { results in
                           switch results {
                               case .success(let movies) :
-                                  print(movies)
+                                  cell.configure(with: movies)
                               case .failure(let error) :
                                   print(error)
                     }
