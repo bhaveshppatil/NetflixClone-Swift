@@ -1,5 +1,5 @@
 //
-//  UpMoviesTableViewCell.swift
+//  TopMoviesTableViewCell.swift
 //  NetflixClone-Swift
 //
 //  Created by Perennial Macbook on 02/03/22.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-class UpMoviesTableViewCell: UITableViewCell {
+class TopMoviesTableViewCell: UITableViewCell {
 
-    static let upIdentifire = "UpMoviesTableViewCell"
+    static let topIdentifire = "TopMoviesTableViewCell"
     
-    private let moviesTitleLable: UILabel = {
+    private let movieTitle: UILabel = {
     let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
         return lable
     }()
     
-    private let playMovieBtn: UIButton = {
+    private let moviePlayButton: UIButton = {
         let playMovie = UIButton()
         let image = UIImage(systemName : "play.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         playMovie.setImage(image, for: .normal)
@@ -27,7 +27,7 @@ class UpMoviesTableViewCell: UITableViewCell {
     
     }()
     
-    private let upMoivesPosterView : UIImageView = {
+    private let topMoviesPosterView : UIImageView = {
         let moviePoster = UIImageView()
         moviePoster.contentMode = .scaleAspectFill
         moviePoster.translatesAutoresizingMaskIntoConstraints = false
@@ -37,28 +37,28 @@ class UpMoviesTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(upMoivesPosterView)
-        contentView.addSubview(moviesTitleLable)
-        contentView.addSubview(playMovieBtn)
-        moviesConstraints()
+        contentView.addSubview(topMoviesPosterView)
+        contentView.addSubview(movieTitle)
+        contentView.addSubview(moviePlayButton)
+        topMoviesConstraints()
     }
     
-    private func moviesConstraints() {
+    private func topMoviesConstraints() {
         let moviesPosterConstraint = [
-            upMoivesPosterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            upMoivesPosterView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            upMoivesPosterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
-            upMoivesPosterView.widthAnchor.constraint(equalToConstant: 100)
+            topMoviesPosterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            topMoviesPosterView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            topMoviesPosterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            topMoviesPosterView.widthAnchor.constraint(equalToConstant: 100)
         ]
         
         let movieLableContraints = [
-            moviesTitleLable.leadingAnchor.constraint(equalTo: upMoivesPosterView.trailingAnchor, constant: 20),
-            moviesTitleLable.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor)
+            movieTitle.leadingAnchor.constraint(equalTo: topMoviesPosterView.trailingAnchor, constant: 20),
+            movieTitle.centerYAnchor.constraint(equalTo:  contentView.centerYAnchor)
         ]
         
         let playButtonContraints = [
-            playMovieBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            playMovieBtn.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            moviePlayButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            moviePlayButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(movieLableContraints)
@@ -66,16 +66,16 @@ class UpMoviesTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(moviesPosterConstraint)
 
     }
-    public func configure(with model : UpcomingViewModel){
+    
+    public func configure(with model : TopSearchViewModel){
         
         guard let imagePath = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {
             return
         }
-        upMoivesPosterView.sd_setImage(with: imagePath, completed: nil)
-        moviesTitleLable.text = model.movieName
+        topMoviesPosterView.sd_setImage(with: imagePath, completed: nil)
+        movieTitle.text = model.movieName
     }
     required init?(coder: NSCoder) {
         fatalError()
     }
-
 }

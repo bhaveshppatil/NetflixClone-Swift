@@ -37,7 +37,7 @@ class UpcomingViewController: UIViewController {
     }
     
     private func getUpcoingMoviesData(){
-        APiService.shared.getUpcomingMovies { [weak self] results in
+        APIService.shared.getUpcomingMovies { [weak self] results in
             switch results {
                 case .success(let movies):
                     self?.movies = movies
@@ -65,6 +65,6 @@ extension UpcomingViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 140
+        return 130
     }
 }

@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol CollectionViewtableViewCellDel : AnyObject{
+    func collectionViewCellDidTapCell (_ cell : UITableViewCell, viewModel : MoviePreviewViewModel)
+    
+}
+
 class UIViewTableCell: UITableViewCell {
 
+    weak var delegate : CollectionViewtableViewCellDel?
+    
     static let identifire = "UIViewTableCell"
     private var moviesCategoryTitle : [MoviesTitle] = [MoviesTitle]()
     
@@ -60,5 +67,27 @@ extension UIViewTableCell : UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return moviesCategoryTitle.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let title = moviesCategoryTitle[indexPath.row]
+        guard let titleName = title.original_title ?? title.original_name else {return}
+        
+        APIService.shared.getMovieData(with: titleName + " trailer") { [weak self] results in
+            switch results{
+                case .success(let videoData):
+                let title = self?.moviesCategoryTitle[indexPath.row]
+                guard let titleOverview = title?.overview else { return }
+                guard let strongSelf = self else {return}
+                    
+                let viewModel = MoviePreviewViewModel(title: titleName, youtubeView: videoData,
+                                                      overview: titleOverview)
+                    self?.delegate?.collectionViewCellDidTapCell(strongSelf, viewModel: viewModel)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
 }

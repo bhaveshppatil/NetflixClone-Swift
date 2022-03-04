@@ -46,7 +46,6 @@ class HomeViewController: UIViewController {
             UIBarButtonItem(image: UIImage(systemName: "person"),style: .done, target: self,action:nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"),style: .done,target:self, action: nil)
             ]
-        navigationController?.navigationBar.tintColor = .white
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,9 +70,11 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
         }
         
+        cell.delegate = self
+        
         switch indexPath.section {
         case Category.TrendingMovies.rawValue:
-            APiService.shared.getTrendingMovies { results in
+            APIService.shared.getTrendingMovies { results in
                           switch results {
                               case .success(let movies) :
                                   cell.configure(with: movies)
@@ -83,7 +84,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
                       }
                 
             case Category.Popular.rawValue:
-                APiService.shared.getPopularMovies { results in
+                APIService.shared.getPopularMovies { results in
                     switch results {
                         case .success(let movies) :
                             cell.configure(with: movies)
@@ -93,7 +94,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
                 }
                 
             case Category.TopRated.rawValue:
-                APiService.shared.getTopRatedMovies { results in
+                APIService.shared.getTopRatedMovies { results in
                     switch results {
                         case .success(let movies):
                             cell.configure(with: movies)
@@ -103,7 +104,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
                 }
                 
             case Category.UpcomingMovies.rawValue:
-                APiService.shared.getUpcomingMovies { results in
+                APIService.shared.getUpcomingMovies { results in
                           switch results {
                               case .success(let movies) :
                                   cell.configure(with: movies)
@@ -143,5 +144,15 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             header.bounds.origin.y,width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .white
         header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
+    }
+}
+
+extension HomeViewController : CollectionViewtableViewCellDel {
+    func collectionViewCellDidTapCell(_ cell: UITableViewCell, viewModel: MoviePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = MoviePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
