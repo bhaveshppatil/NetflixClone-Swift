@@ -14,8 +14,12 @@ enum Category : Int {
     case UpcomingMovies =  3
     
 }
+
 class HomeViewController: UIViewController {
 
+    private var randomTrendingMovies : MoviesTitle?
+    private var headerView : HeaderUIView?
+    
     let titles : [String] = ["Trending Movies", "Popular Movies", "Top Rated", "Upcoming Movies"]
     
     private let homeFeedTable : UITableView = {
@@ -33,9 +37,25 @@ class HomeViewController: UIViewController {
         
         navigationBar()
         
-        let headerView = HeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        headerView = HeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
         homeFeedTable.tableHeaderView = headerView
+        configureHeaderView()
         
+    }
+    
+    private func configureHeaderView(){
+        APIService.shared.getTrendingMovies { [weak self] results in
+            switch results {
+                case .success(let movies):
+                    let randomTitle = movies.randomElement()
+                    self?.randomTrendingMovies = randomTitle
+                    self?.headerView?.configure(with: MovieViewModel(
+                        movieName: randomTitle?.original_title ?? "",
+                        posterURL: randomTitle?.poster_path ?? "") )
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
     
     private func navigationBar(){

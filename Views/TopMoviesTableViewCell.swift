@@ -67,7 +67,7 @@ class TopMoviesTableViewCell: UITableViewCell {
 
     }
     
-    public func configure(with model : TopSearchViewModel){
+    public func configure(with model : MovieViewModel){
         
         guard let imagePath = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {
             return

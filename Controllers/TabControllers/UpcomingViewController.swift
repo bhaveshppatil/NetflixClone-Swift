@@ -60,7 +60,7 @@ extension UpcomingViewController : UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let title = movies[indexPath.row]
-        cell.configure(with: UpcomingViewModel(movieName: title.original_title ?? "Unknown Name", posterURL: title.poster_path ?? ""))
+        cell.configure(with: MovieViewModel(movieName: title.original_title ?? "Unknown Name", posterURL: title.poster_path ?? ""))
         return cell
     }
     

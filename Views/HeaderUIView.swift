@@ -77,6 +77,13 @@ class HeaderUIView: UIView {
 
     }
     
+    public func configure(with model : MovieViewModel){
+        guard let imagePath = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {
+            return
+        }
+        imageView.sd_setImage(with: imagePath, completed: nil)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = bounds

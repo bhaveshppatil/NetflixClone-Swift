@@ -66,7 +66,7 @@ class UpMoviesTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(moviesPosterConstraint)
 
     }
-    public func configure(with model : UpcomingViewModel){
+    public func configure(with model : MovieViewModel){
         
         guard let imagePath = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {
             return
