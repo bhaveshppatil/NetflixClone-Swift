@@ -49,6 +49,16 @@ class UIViewTableCell: UITableViewCell {
             self?.collectionView.reloadData()
         }
     }
+    private func downloadMovie(indexpath : IndexPath){
+        DataManager.shared.downloadMovie(model: moviesCategoryTitle[indexpath.row]) { results in
+            switch results {
+                case .success():
+                    NotificationCenter.default.post(name: NSNotification.Name("Downloaded"), object: nil)
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension UIViewTableCell : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -90,4 +100,17 @@ extension UIViewTableCell : UICollectionViewDelegate, UICollectionViewDataSource
             }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
+                let downlaod = UIAction(title: "Download", subtitle: nil, image: nil, identifier: nil, discoverabilityTitle: nil, state: .off) { _ in
+                    self?.downloadMovie(indexpath: indexPath)
+                }
+                return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline,
+                              children: [downlaod])
+            }
+        return config
+    }
+    
 }
